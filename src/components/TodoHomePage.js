@@ -62,6 +62,18 @@ const HomePage = () => {
     dispatch(reorderTodos(reorderedTodos));
   };
 
+  const filteredTodos = () => {
+    switch (activeFilter) {
+      case 'all':
+        return Object.values(todos);
+      case 'completed':
+        return Object.values(todos).filter((todo) => todo.completed);
+      case 'active':
+        return Object.values(todos).filter((todo) => !todo.completed);
+      default:
+        return Object.values(todos);
+    }
+  };
   return (
     <Container className="mt-5">
       <h1>To-Do List</h1>
@@ -117,7 +129,7 @@ const HomePage = () => {
                   >
                     {(provided) => (
                       <tr
-                        key={todo.id}
+                        key={todo?.id}
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
@@ -155,7 +167,12 @@ const HomePage = () => {
         show={showEditModal}
         handleClose={handleEditModalClose}
         editTodoId={editTodoId}
-        initialText={(Array.isArray(todos) ? todos.find((todo) => todo.id === editTodoId) : todos[editTodoId])?.title}
+        initialText={
+          (Array.isArray(todos)
+            ? todos.find((todo) => todo?.id === editTodoId)
+            : todos[editTodoId]
+          )?.title
+        }
       />
     </Container>
   );
