@@ -52,13 +52,9 @@ const HomePage = () => {
 
     const sourceIndex = result.source.index;
     const destinationIndex = result.destination.index;
-
-    // Reorder the todos
     const reorderedTodos = Array.from(Object.values(todos));
     const [removed] = reorderedTodos.splice(sourceIndex, 1);
     reorderedTodos.splice(destinationIndex, 0, removed);
-
-    // Dispatch the reorder action
     dispatch(reorderTodos(reorderedTodos));
   };
 
