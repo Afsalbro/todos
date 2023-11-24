@@ -111,8 +111,8 @@ const HomePage = () => {
               <tbody ref={provided.innerRef} {...provided.droppableProps}>
                 {Object.values(todos).map((todo, index) => (
                   <Draggable
-                    key={todo.id}
-                    draggableId={todo.id.toString()}
+                    key={todo?.id}
+                    draggableId={todo?.id.toString()}
                     index={index}
                   >
                     {(provided) => (
@@ -122,8 +122,8 @@ const HomePage = () => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                       >
-                        <td>{todo.id}</td>
-                        <td>{todo.title}</td>
+                        <td>{todo?.id}</td>
+                        <td>{todo?.title}</td>
                         <td>
                           <Button
                             variant="info"
@@ -155,7 +155,7 @@ const HomePage = () => {
         show={showEditModal}
         handleClose={handleEditModalClose}
         editTodoId={editTodoId}
-        initialText={todos[editTodoId]?.title}
+        initialText={(Array.isArray(todos) ? todos.find((todo) => todo.id === editTodoId) : todos[editTodoId])?.title}
       />
     </Container>
   );
