@@ -63,17 +63,19 @@ const HomePage = () => {
   };
 
   const filteredTodos = () => {
+    const todosArray = Array.isArray(todos) ? todos : Object.values(todos);
     switch (activeFilter) {
       case 'all':
-        return Object.values(todos);
+        return todosArray;
       case 'completed':
-        return Object.values(todos).filter((todo) => todo.completed);
+        return todosArray.filter((todo) => todo.completed);
       case 'active':
-        return Object.values(todos).filter((todo) => !todo.completed);
+        return todosArray.filter((todo) => !todo.completed);
       default:
-        return Object.values(todos);
+        return todosArray;
     }
   };
+
   return (
     <Container className="mt-5">
       <h1>To-Do List</h1>
@@ -121,7 +123,7 @@ const HomePage = () => {
                 </tr>
               </thead>
               <tbody ref={provided.innerRef} {...provided.droppableProps}>
-                {Object.values(todos).map((todo, index) => (
+                {filteredTodos().map((todo, index) => (
                   <Draggable
                     key={todo?.id}
                     draggableId={todo?.id.toString()}

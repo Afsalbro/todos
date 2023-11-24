@@ -19,7 +19,7 @@ export const getTodosAsync = createAsyncThunk(
   async () => {
     try {
       const res = await axios(api);
-      console.log(res);
+    //   console.log(res);
       return res.data;
     } catch (error) {
       throw Error("Error fetching todos");
